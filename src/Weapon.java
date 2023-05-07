@@ -19,6 +19,14 @@ public class Weapon {
         return weaponList;
     }
 
+    public static Weapon getWeaponById(int id){
+         for (Weapon w : Weapon.weapons()){
+             if(w.getId() == id){
+                 return w;
+             }
+         }
+         return null;
+    }
 
     public int getId() {
         return id;
