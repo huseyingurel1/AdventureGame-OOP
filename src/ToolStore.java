@@ -19,7 +19,7 @@ public class ToolStore extends NormalLoc{
         switch(selectCase){
             // TODO: 5/6/2023 print methodları yazılacak
             case 1 :
-//                printWeapons();
+                printWeapons();
                 break;
             case 2 :
 //                printArmors();
@@ -30,5 +30,12 @@ public class ToolStore extends NormalLoc{
             default :
         }
         return true;
+    }
+
+    public void printWeapons(){
+        System.out.println("################## Weapons #####################");
+        for(Weapon w : Weapon.weapons()){
+            System.out.println("< ID : " + w.getId() + "\tName : "+  w.getName() + "\t< Damage : "+ w.getDamage() + "\t Price : "+ w.getPrice() + " >");
+        }
     }
 }

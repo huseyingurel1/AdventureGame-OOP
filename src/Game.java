@@ -22,7 +22,7 @@ public class Game {
 
         while(true){
             System.out.println();
-            System.out.println("############## Locations ##############");
+            System.out.println("################## Locations ################## ");
             System.out.println();
             System.out.println("1- SafeHouse  --> It's safe for you here, there are no enemies here ");
             System.out.println("2- ToolStore  --> You can buy weapons or armor here ");
