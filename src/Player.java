@@ -8,9 +8,11 @@ public class Player {
     private String charName;
 
     private Scanner scanner = new Scanner(System.in);
+    private Inventory inventory;
 
     public Player(String name){
         this.name = name;
+        this.inventory = new Inventory();
     }
 
     public void selectChar(){
@@ -58,6 +60,17 @@ public class Player {
             this.setCharName(gameChar.getName());
     }
 
+    public void printInfo(){
+        System.out.println("################ Player Info ################");
+        System.out.println(
+                "Your Weapon :" +this.getInventory().getWeapon().getName() +
+                "\nYour Armor :" + this.getInventory().getArmor().getName() +
+                "\nYour Defence :" + this.getInventory().getArmor().getDefence() +
+                "\nYour Damage :" + this.getDamage() +
+                "\nYour Health :" + this.getHealth()+
+                "\nYour Money :" + this.getMoney());
+    }
+
     // Getter and setter methods
     public String getName() {
         return name;
@@ -68,7 +81,7 @@ public class Player {
     }
 
     public int getDamage() {
-        return damage;
+        return damage + this.getInventory().getWeapon().getDamage();
     }
 
     public void setDamage(int damage){
@@ -98,4 +111,11 @@ public class Player {
         this.charName = charName;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
 }
