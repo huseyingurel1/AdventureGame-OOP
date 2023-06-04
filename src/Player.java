@@ -64,11 +64,11 @@ public class Player {
         System.out.println("################ Player Info ################");
         System.out.println(
                 "Your Weapon :" +this.getInventory().getWeapon().getName() +
-                "\nYour Armor :" + this.getInventory().getArmor().getName() +
-                "\nYour Defence :" + this.getInventory().getArmor().getDefence() +
-                "\nYour Damage :" + this.getDamage() +
-                "\nYour Health :" + this.getHealth()+
-                "\nYour Money :" + this.getMoney());
+                "\tYour Armor :" + this.getInventory().getArmor().getName() +
+                "\tYour Defence :" + this.getInventory().getArmor().getDefence() +
+                "\tYour Damage :" + this.getDamage() +
+                "\tYour Health :" + this.getHealth()+
+                "\tYour Money :" + this.getMoney());
     }
 
     // Getter and setter methods
