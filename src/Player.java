@@ -4,8 +4,10 @@ public class Player {
     private String name;
     private int damage;
     private int health;
+    private int originalHealth;
     private int money;
     private String charName;
+
 
     private Scanner scanner = new Scanner(System.in);
     private Inventory inventory;
@@ -56,6 +58,7 @@ public class Player {
     public void initPlayer(GameChar gameChar){
             this.setDamage(gameChar.getDamage());
             this.setHealth(gameChar.getHealth());
+            this.setOriginalHealth(gameChar.getHealth());
             this.setMoney(gameChar.getMoney());
             this.setCharName(gameChar.getName());
     }
@@ -66,7 +69,7 @@ public class Player {
                 "Your Weapon :" +this.getInventory().getWeapon().getName() +
                 "\tYour Armor :" + this.getInventory().getArmor().getName() +
                 "\tYour Defence :" + this.getInventory().getArmor().getDefence() +
-                "\tYour Damage :" + this.getDamage() +
+                "\tYour Damage :" + this.getTotalDamage() +
                 "\tYour Health :" + this.getHealth()+
                 "\tYour Money :" + this.getMoney());
     }
@@ -80,8 +83,12 @@ public class Player {
         this.name = name;
     }
 
-    public int getDamage() {
+
+    public int getTotalDamage() {
         return damage + this.getInventory().getWeapon().getDamage();
+    }
+    public int getDamage() {
+        return damage ;
     }
 
     public void setDamage(int damage){
@@ -93,6 +100,14 @@ public class Player {
     }
     public void setHealth(int health){
         this.health = health;
+    }
+
+    public int getOriginalHealth() {
+        return originalHealth;
+    }
+
+    public void setOriginalHealth(int originalHealth) {
+        this.originalHealth = originalHealth;
     }
 
     public int getMoney(){
