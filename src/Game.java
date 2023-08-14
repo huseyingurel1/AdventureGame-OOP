@@ -14,7 +14,7 @@ public class Game {
 
         System.out.println(player.getName() + ", I want to play game with you ! Are you ready ? ");
 
-        System.out.println("Select a character for start the game");
+        System.out.println("Select a character for start the game !");
 
         player.selectChar();
 
@@ -33,7 +33,6 @@ public class Game {
             System.out.println("0- EXIT  --> Exit The Game ");
             System.out.println("Please select the location you want to go to :  ");
             int selectLoc = scanner.nextInt();
-
             switch (selectLoc){
                 case 0:
                     location = null;
@@ -64,8 +63,12 @@ public class Game {
 
             if(!location.onLocation())
             {
-                System.out.println("Game Over!");
-                break;
+                if(player.getInventory().isWater() && player.getInventory().isFood() && player.getInventory().isFirewood()){
+                    System.out.println("Tebrikler Kazandınızzzz ! Tüm ödülleri alarak güzenli bölgeye ulaştınız !");
+                }else{
+                    System.out.println("Game Over!");
+                    break;
+                }
             }
         }
     }

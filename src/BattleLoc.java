@@ -1,5 +1,4 @@
-import java.awt.datatransfer.StringSelection;
-import java.util.Locale;
+
 import java.util.Random;
 
 public abstract class BattleLoc extends Location {
@@ -17,27 +16,45 @@ public abstract class BattleLoc extends Location {
 
     @Override
     public boolean onLocation() {
-        int obsNum = this.randomObstacleNumber();
-        String pluralSuffix = "s";
-        if(obsNum==1){
-            pluralSuffix="";
-        }
-        System.out.println("You are in the " + this.getName());
-        System.out.println("Be careful !! There are "+ obsNum + " " +this.getObstacle().getName()+ pluralSuffix + " here!!");
+        if(  (this.getPlayer().getInventory().isFood() && this.getObstacle().getId() ==1) ||
+             (this.getPlayer().getInventory().isFirewood() && this.getObstacle().getId() ==2) ||
+             (this.getPlayer().getInventory().isWater() && this.getObstacle().getId() ==3)
+        ){
+            System.out.println("Bu bölgenin ödülü zaten alındı ! Lütfen başka bir bölge seçiniz !");
+            return true ;
+        }else {
+            int obsNum = this.randomObstacleNumber();
+            String pluralSuffix = "s";
+            if (obsNum == 1) {
+                pluralSuffix = "";
+            }
+            System.out.println("You are in the " + this.getName());
+            System.out.println("Be careful !! There are " + obsNum + " " + this.getObstacle().getName() + pluralSuffix + " here!!");
 
-        System.out.println("<F>ight or <M>ove away");
-        String selectCase = scanner.nextLine().toUpperCase();
-        if(selectCase.equals("F") && combat(obsNum)){
-           System.out.println(this.getName() + " tüm düşmanları yendiniz !");
-           return true;
-        }
+            System.out.println("<F>ight or <M>ove away");
+            String selectCase = scanner.nextLine().toUpperCase();
+            if (selectCase.equals("F") && combat(obsNum)) {
+                System.out.println(this.getName() + " tüm düşmanları yendiniz !");
+                if (this.getObstacle().getId() == 1) {
+                    this.getPlayer().getInventory().setFood(true);
+                    System.out.println("Magara ödülü alindi(Yemek)");
+                } else if (this.getObstacle().getId() == 2) {
+                    this.getPlayer().getInventory().setFirewood(true);
+                    System.out.println("Orman ödülü alindi(Odun)");
+                } else if (this.getObstacle().getId() == 3) {
+                    this.getPlayer().getInventory().setWater(true);
+                    System.out.println("Nehir ödülü alindi(Su)");
+                }
 
-        if(this.getPlayer().getHealth() <= 0){
-            System.out.println("Öldünüz !");
-            return false;
-        }
-        return true;
+                return true;
+            }
 
+            if (this.getPlayer().getHealth() <= 0) {
+                System.out.println("Öldünüz !");
+                return false;
+            }
+            return true;
+        }
     }
 
     public boolean combat(int obsNum){
@@ -49,18 +66,24 @@ public abstract class BattleLoc extends Location {
                 System.out.println("<H>it or <M>ove away  : ");
                 String selectCombat = scanner.nextLine().toUpperCase();
                 if("H".equals(selectCombat)){
-                    System.out.println("You Shot !");
-                    obstacle.setHealth(this.obstacle.getHealth() - this.getPlayer().getTotalDamage());
-                    afterHit();
-                    if(this.getObstacle().getHealth() > 0) {
-                        System.out.println();
-                        System.out.println(this.getObstacle().getName() + "  hit you !" );
-                        int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getDefence();
-                        if(obstacleDamage < 0) {
-                            obstacleDamage = 0;
-                        }
-                        this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
+                    Random r = new Random();
+                    int randomHitNum =r.nextInt(2);
+
+                    if(randomHitNum == 1){
+                        System.out.println("You Shot !");
+                        obstacle.setHealth(this.obstacle.getHealth() - this.getPlayer().getTotalDamage());
                         afterHit();
+                    }else{
+                        if(this.getObstacle().getHealth() > 0) {
+                            System.out.println();
+                            System.out.println(this.getObstacle().getName() + "  hit you !" );
+                            int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getDefence();
+                            if(obstacleDamage < 0) {
+                                obstacleDamage = 0;
+                            }
+                            this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
+                            afterHit();
+                        }
                     }
                 }else{
                     return false;
