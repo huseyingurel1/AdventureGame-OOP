@@ -30,6 +30,7 @@ public class Game {
             System.out.println("3- Cave  --> Award <Food> , Be careful, the zombie may come out ! ");
             System.out.println("4- Forest  --> Award <Firewood> , Be careful, the vampire may come out ! ");
             System.out.println("5- River  --> Award <Water> , Be careful, the bear may come out ! ");
+            System.out.println("6- Coal  --> Award <Suprise> , Be careful, the snake may come out ! ");
             System.out.println("0- EXIT  --> Exit The Game ");
             System.out.println("Please select the location you want to go to :  ");
             int selectLoc = scanner.nextInt();
@@ -52,6 +53,9 @@ public class Game {
                 case 5 :
                     location = new River(player);
                     break;
+                case 6 :
+                    location = new Coal(player);
+                    break;
                 default:
                     System.out.println("Please Enter A Valid Number !");
             }
@@ -65,6 +69,7 @@ public class Game {
             {
                 if(player.getInventory().isWater() && player.getInventory().isFood() && player.getInventory().isFirewood()){
                     System.out.println("Tebrikler Kazandınızzzz ! Tüm ödülleri alarak güzenli bölgeye ulaştınız !");
+                    break;
                 }else{
                     System.out.println("Game Over!");
                     break;

@@ -90,10 +90,20 @@ public abstract class BattleLoc extends Location {
                 }
             }
             if(this.getObstacle().getHealth() < this.getPlayer().getHealth()) {
-                System.out.println("Düşmanı Yendiniz !");
-                System.out.println(this.getObstacle().getAward() + " para kazandınız !");
-                this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getObstacle().getAward());
-                System.out.println("Güncel Paranız : " + this.getPlayer().getMoney());
+                if(this.getObstacle().getName().equals("Snake")){
+                    System.out.println("Yılanı yendiniz, Rastgele ganimet seçiliyor ...");
+                    String kazanilanUrun = randomLoot();
+                    System.out.println("***********************************************");
+                    System.out.println("************ KAZANILAN EŞYA *******************");
+                    System.out.println("            "+ kazanilanUrun + "               ");
+                    System.out.println("***********************************************");
+
+                }else{
+                    System.out.println("Düşmanı Yendiniz !");
+                    System.out.println(this.getObstacle().getAward() + " para kazandınız !");
+                    this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getObstacle().getAward());
+                    System.out.println("Güncel Paranız : " + this.getPlayer().getMoney());
+                }
             }else{
                 return false;
             }
@@ -116,7 +126,46 @@ public abstract class BattleLoc extends Location {
         Random r = new Random();
         return r.nextInt(this.getMaxObstacle()) + 1;
     }
+    public String randomLoot(){
+        String esya;
+        Random r = new Random();
+        int randomNumber = r.nextInt(100) + 1;
+        int randomNumber2 = r.nextInt(100) + 1;
+        System.out.println(randomNumber);
+        System.out.println(randomNumber2);
 
+        if(randomNumber <=15){
+            System.out.println("weapon %15");
+            if(randomNumber2 <=20){
+                esya= "Tüfek";
+            } else if (randomNumber2<=50) {
+                esya= "Kılıç";
+            }else {
+                esya= "Tabanca";
+            }
+        } else if(randomNumber <=30){
+            System.out.println("armor %15");
+            if(randomNumber2 <=20){
+                esya= "Ağır Zırh";
+            } else if (randomNumber2<=50) {
+                esya= "Orta Zırh";
+            }else {
+                esya= "Hafif Zırh";
+            }
+        } else if(randomNumber <=55){
+            System.out.println("gold %15");
+            if(randomNumber2 <=20){
+                esya= "10 Para";
+            } else if (randomNumber2<=50) {
+                esya= "5 Para";
+            }else {
+                esya= "1 Para";
+            }
+        }else{
+            esya= "nothing";
+        }
+        return esya;
+    }
     public Obstacle getObstacle() {
         return obstacle;
     }
